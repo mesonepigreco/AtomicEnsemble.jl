@@ -53,8 +53,9 @@ using PyCall
 ```
 """
 function load_scf(scf_file :: String, ST) :: Structure{Float64}
-    ase_structure = ST.Structure()
-    ase_structure.read_scf(scf_file)
+    structure = ST.Structure()
+    structure.read_scf(scf_file)
+    structure.build_masses()
 
     # Now convert the structure to a Structure object
     return Structure(ase_structure)
