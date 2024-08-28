@@ -44,8 +44,15 @@ end
 
 Load a structure from a Quantum Espresso scf file.
 This file is defined in the python module cellconstructor.
+
+ST must be the Structure module of the cellconstructor package.
+It can be loaded with PyCall using
+```julia
+using PyCall
+@pyimport cellconstructor.Structure as ST
+```
 """
-function load_scf(scf_file :: String) :: Structure{Float64}
+function load_scf(scf_file :: String, ST) :: Structure{Float64}
     ase_structure = ST.Structure()
     ase_structure.read_scf(scf_file)
 
