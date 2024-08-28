@@ -42,6 +42,6 @@ include("standard_ensemble.jl")
 include("pycall_structure.jl")
 include("pycall_ensemble.jl")
 
-export Structure, StandardEnsemble, save, load_ensemble
+export Structure, StandardEnsemble, save, load_ensemble, length
 
 end # module AtomicEnsemble
