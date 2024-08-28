@@ -19,9 +19,9 @@ end
 
 
 function convert_to_dict(ensemble :: AbstractEnsemble)
-    structures = [convert_to_dict(structure) for structure in structures(ensemble)]
+    structs = [convert_to_dict(structure) for structure in structures(ensemble)]
     forces = [force[:, :, i] for i in 1:size(force, 3)]
-    ensemble_dict = Dict(:structures => structures,
+    ensemble_dict = Dict(:structures => structs,
                          :energies => energies(ensemble),
                          :forces => forces(ensemble))
     return ensemble_dict
