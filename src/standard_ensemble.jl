@@ -3,7 +3,7 @@
 
 Generate a standard ensemble with the same structure for all configurations.
 """
-function generate_standard_ensemble(n_configs :: Int, copy_structure :: Structure{T}) :: Ensemble{T} where {T}
+function generate_standard_ensemble(n_configs :: Int, copy_structure :: Structure{T}) :: StandardEnsemble{T} where {T}
     n_atoms = length(copy_structure)
     structures = Vector{Structure{T}}(undef, n_configs)
     energies = zeros(T, n_configs)
