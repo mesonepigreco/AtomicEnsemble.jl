@@ -17,7 +17,7 @@ position(s :: Structure) = s.positions
 masses(s :: Structure) = s.masses
 cell(s :: Structure) = s.cell
 atoms(s :: Structure) = s.atoms
-length(s :: Structure) = size(s.positions, 2)
+Base.length(s :: Structure) = size(s.positions, 2)
 
 @doc raw"""
     StandardEnsemble
@@ -42,6 +42,6 @@ include("standard_ensemble.jl")
 include("pycall_structure.jl")
 include("pycall_ensemble.jl")
 
-export Structure, StandardEnsemble, save, load_ensemble, length
+export Structure, StandardEnsemble, save, load_ensemble
 
 end # module AtomicEnsemble
