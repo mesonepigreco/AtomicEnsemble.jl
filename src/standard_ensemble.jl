@@ -9,7 +9,7 @@ function generate_standard_ensemble(n_configs :: Int, copy_structure :: Structur
     energies = zeros(T, n_configs)
     forces = zeros(T, 3, n_atoms, n_configs)
 
-    for i in 1:n_structures
+    for i in 1:n_configs
         structures[i].positions .= positions(copy_structure) 
         structures[i].masses .= masses(copy_structure)
         structures[i].cell .= cell(copy_structure)

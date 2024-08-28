@@ -35,7 +35,7 @@ end
 energies(ensemble :: StandardEnsemble) = ensemble.energies
 forces(ensemble :: StandardEnsemble) = ensemble.forces
 structures(ensemble :: StandardEnsemble) = ensemble.structures
-n_structures(ensemble :: StandardEnsemble) = length(ensemble.structures)
+Base.length(ensemble :: StandardEnsemble) = length(ensemble.structures)
 
 include("standard_ensemble.jl")
 
