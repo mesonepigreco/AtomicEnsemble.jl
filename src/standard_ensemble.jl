@@ -10,7 +10,7 @@ function generate_standard_ensemble(n_configs :: Int, copy_structure :: Structur
     forces = zeros(T, 3, n_atoms, n_configs)
 
     for i in 1:n_configs
-        structure = Structure{T}(position(copy_structure), masses(copy_structure), cell(copy_structure), atoms(copy_structure))
+        structure = Structure{T}(positions(copy_structure), masses(copy_structure), cell(copy_structure), atoms(copy_structure))
         structures[i] = structure
     end
 
