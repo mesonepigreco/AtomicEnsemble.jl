@@ -8,9 +8,9 @@
     A structure object that contains the positions, masses, unit cell, and atoms of a structure.
 """
 function Structure(s :: PyCall.PyObject) :: Structure
-    positions = s.coords'
+    positions = copy(s.coords')
     masses = s.get_masses_array()
-    cell = s.unit_cell'
+    cell = copy(s.unit_cell')
     atoms = s.atoms
     return Structure(positions, masses, cell, atoms)
 end
