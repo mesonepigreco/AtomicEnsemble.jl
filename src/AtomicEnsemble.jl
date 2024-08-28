@@ -13,7 +13,7 @@ struct Structure{T} <: AbstractStructure
     atoms :: Vector{String}
 end
 
-position(s :: Structure) = s.positions
+positions(s :: Structure) = s.positions
 masses(s :: Structure) = s.masses
 cell(s :: Structure) = s.cell
 atoms(s :: Structure) = s.atoms
