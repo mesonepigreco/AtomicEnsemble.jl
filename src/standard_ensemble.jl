@@ -64,7 +64,7 @@ save("ensemble.jld2", ensemble)
 ```
 
 """
-function save(filename :: String, ensemble :: AbstractEnsemble)
+function FileIO.save(filename :: String, ensemble :: AbstractEnsemble)
     ensemble_dict = convert_to_dict(ensemble)
     save(filename, ensemble_dict)
 end
