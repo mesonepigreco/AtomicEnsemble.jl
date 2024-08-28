@@ -10,10 +10,8 @@ function generate_standard_ensemble(n_configs :: Int, copy_structure :: Structur
     forces = zeros(T, 3, n_atoms, n_configs)
 
     for i in 1:n_configs
-        structures[i].positions .= positions(copy_structure) 
-        structures[i].masses .= masses(copy_structure)
-        structures[i].cell .= cell(copy_structure)
-        structures[i].atoms .= atoms(copy_structure)
+        structure = Structure{T}(positions(copy_structure), masses(copy_structure), cell(copy_structure), atoms(copy_structure))
+        structures[i] = structure
     end
 
     return StandardEnsemble(structures, energies, forces)
