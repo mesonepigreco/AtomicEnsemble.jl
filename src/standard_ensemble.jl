@@ -3,7 +3,7 @@
 
 Generate a standard ensemble with the same structure for all configurations.
 """
-function generate_standard_ensemble(n_configs :: Int, copy_structure :: Structure{T}) :: Ensemble{T}
+function generate_standard_ensemble(n_configs :: Int, copy_structure :: Structure{T}) :: Ensemble{T} where {T}
     n_atoms = length(copy_structure)
     structures = Vector{Structure{T}}(undef, n_configs)
     energies = zeros(T, n_configs)
@@ -20,7 +20,7 @@ function generate_standard_ensemble(n_configs :: Int, copy_structure :: Structur
 end
 
 
-function convert_to_dict(ensemble :: AbstactEnsemble)
+function convert_to_dict(ensemble :: AbstractEnsemble)
     structures = [convert_to_dict(structure) for structure in structures(ensemble)]
     forces = [force[:, :, i] for i in 1:size(force, 3)]
     ensemble_dict = Dict(:structures => structures,

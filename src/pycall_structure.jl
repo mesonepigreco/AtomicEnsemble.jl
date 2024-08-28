@@ -19,7 +19,23 @@ function set_ase_positions!(ase_atoms :: PyCall.PyObject, structure :: Structure
     ase_atoms.set_positions(positions(structure)')
 end
 
-function get_ase_atoms(structure :: Structure) :: PyCall.PyObject
+@doc raw"""
+    get_ase_atoms(structure :: Structure, ATM) :: PyObject
+
+Create an ASE atoms object from a Structure object.
+ATM is the Atoms module of the ASE package.
+It can be loaded with PyCall using
+```julia
+using PyCall
+ATM = pyimport("ase.atoms")
+```
+Or, alternatively,
+```julia
+using PyCall
+@pyimport ase.atoms as ATM
+```
+"""
+function get_ase_atoms(structure :: Structure, ATM) :: PyCall.PyObject
     return ATM.Atoms(atoms(structure), positions = positions(structure)', pbc = true, cell = cell(structure)')
 end
 

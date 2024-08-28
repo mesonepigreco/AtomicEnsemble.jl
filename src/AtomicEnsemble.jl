@@ -1,6 +1,7 @@
 module AtomicEnsemble
 
 using FileIO
+using PyCall
 
 abstract type AbstractEnsemble end
 abstract type AbstractStructure end
@@ -38,27 +39,8 @@ n_structures(ensemble :: StandardEnsemble) = length(ensemble.structures)
 
 include("standard_ensemble.jl")
 
-# Import the pycall interaction if PyCall is defined
-@static if isdefined(Main, :PyCall) 
-    import PyCall
-    
-    # Check whether pycall can import cellconstructor and sscha
-    try
-        @pyimport cellconstructor as CC
-        @pyimport cellconstructor.Structure as ST
-        @pyimport cellconstructor.Phonons as PH
-        @pyimport sscha
-        @pyimport sscha.Ensemble as ENS
-    catch
-        @warn "PyCall can't import cellconstructor or sscha. Structure will not be able to interact with ASE"
-    end
-
-    include("pycall_structure.jl")
-    include("pycall_ensemble.jl")
-else
-    @warn "PyCall not defined. Structure will not be able to interact with ASE"
-end
-
+include("pycall_structure.jl")
+include("pycall_ensemble.jl")
 
 export Structure, StandardEnsemble, save, load_ensemble
 

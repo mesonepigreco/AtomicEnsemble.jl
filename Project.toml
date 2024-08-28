@@ -2,3 +2,7 @@ name = "AtomicEnsemble"
 uuid = "ad7cdd91-c26f-429d-8097-039bc5c95b0a"
 authors = ["Lorenzo Monacelli <mesonepigreco@gmail.com>"]
 version = "0.1.0"
+
+[deps]
+FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
+PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
