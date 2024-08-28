@@ -20,10 +20,10 @@ end
 
 function convert_to_dict(ensemble :: AbstractEnsemble)
     structs = [convert_to_dict(structure) for structure in structures(ensemble)]
-    forces = [force[:, :, i] for i in 1:size(force, 3)]
+    frc = [forces(ensemble)[:, :, i] for i in 1:size(force, 3)]
     ensemble_dict = Dict(:structures => structs,
                          :energies => energies(ensemble),
-                         :forces => forces(ensemble))
+                         :forces => frc)
     return ensemble_dict
 end
 
