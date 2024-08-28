@@ -58,7 +58,7 @@ function load_scf(scf_file :: String, ST) :: Structure{Float64}
     structure.build_masses()
 
     # Now convert the structure to a Structure object
-    return Structure(ase_structure)
+    return Structure(structure)
 end
 
 function get_energy(ase_atoms :: PyCall.PyObject, calculator :: PyCall.PyObject)
