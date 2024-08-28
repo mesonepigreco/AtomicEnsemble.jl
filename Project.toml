@@ -1,0 +1,4 @@
+name = "AtomicEnsemble"
+uuid = "ad7cdd91-c26f-429d-8097-039bc5c95b0a"
+authors = ["Lorenzo Monacelli <mesonepigreco@gmail.com>"]
+version = "0.1.0"
