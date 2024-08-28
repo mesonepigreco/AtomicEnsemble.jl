@@ -37,6 +37,8 @@ forces(ensemble :: StandardEnsemble) = ensemble.forces
 structures(ensemble :: StandardEnsemble) = ensemble.structures
 Base.length(ensemble :: StandardEnsemble) = length(ensemble.structures)
 
+export energies, forces, structures
+
 include("standard_ensemble.jl")
 
 include("pycall_structure.jl")
