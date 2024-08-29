@@ -21,27 +21,27 @@ end
 function convert_to_dict(ensemble :: AbstractEnsemble)
     structs = [convert_to_dict(structure) for structure in structures(ensemble)]
     frc = [forces(ensemble)[:, :, i] for i in 1:length(ensemble)]
-    ensemble_dict = Dict(:structures => structs,
-                         :energies => energies(ensemble),
-                         :forces => frc)
+    ensemble_dict = Dict("structures" => structs,
+                         "energies" => energies(ensemble),
+                         "forces" => frc)
     return ensemble_dict
 end
 
 function convert_to_dict(structure :: AbstractStructure)
-    struct_dict = Dict(:atoms => atoms(structure), :cell => cell(structure), :masses => masses(structure), :positions => positions(structure)) 
+    struct_dict = Dict("atoms" => atoms(structure), "cell" => cell(structure), "masses" => masses(structure), "positions" => positions(structure)) 
     return struct_dict
 end
 
 function convert_to_structure(structure_dict :: Dict) :: Structure
-    return Structure(structure_dict[:positions], structure_dict[:masses], structure_dict[:cell], structure_dict[:atoms])
+    return Structure(structure_dict["positions"], structure_dict["masses"], structure_dict["cell"], structure_dict["atoms"])
 end
 function convert_to_ensemble(ensemble_dict :: Dict) :: StandardEnsemble
-    structures = [convert_to_structure(structure) for structure in ensemble_dict[:structures]]
+    structures = [convert_to_structure(structure) for structure in ensemble_dict["structures"]]
     forces = zeros(Float64, 3, n_atoms(structures[1]), length(structures))
     for i in 1:length(structures)
-        forces[:, :, i] = ensemble_dict[:forces][i]
+        forces[:, :, i] = ensemble_dict["forces"][i]
     end
-    return StandardEnsemble(structures, ensemble_dict[:energies], forces)
+    return StandardEnsemble(structures, ensemble_dict["energies"], forces)
 end
 
 
