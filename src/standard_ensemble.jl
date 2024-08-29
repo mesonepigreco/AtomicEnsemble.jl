@@ -37,7 +37,10 @@ function convert_to_structure(structure_dict :: Dict) :: Structure
 end
 function convert_to_ensemble(ensemble_dict :: Dict) :: StandardEnsemble
     structures = [convert_to_structure(structure) for structure in ensemble_dict["structures"]]
-    forces = zeros(Float64, 3, n_atoms(structures[1]), length(structures))
+    if length(structures) == 0
+        error("No structures found in the ensemble")
+    end
+    forces = zeros(Float64, 3, length(structures[1]), length(structures))
     for i in 1:length(structures)
         forces[:, :, i] = ensemble_dict["forces"][i]
     end

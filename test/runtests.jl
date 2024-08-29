@@ -18,14 +18,19 @@ using AtomicEnsemble
     # Now compare the two ensemble
     @test length(ensemble) == length(ensemble_bis)
     for i in 1:length(ensemble)
-        @test energies(ensemble)[i] ≈ energies(ensemble_bis)[i]
+        @test AtomicEnsemble.energies(ensemble)[i] ≈ AtomicEnsemble.energies(ensemble_bis)[i]
         for k in 1:length(structures(ensemble)[i])
             for h in 1:3
-                @test cell(structures(ensemble)[i])[h, k] ≈ cell(structures(ensemble_bis)[i])[h, k]
-                @test positions(structures(ensemble)[i])[h, k] ≈ positions(structures(ensemble_bis)[i])[h, k]
+                @test AtomicEnsemble.positions(structures(ensemble)[i])[h, k] ≈ AtomicEnsemble.positions(structures(ensemble_bis)[i])[h, k]
             end
-            @test masses(structures(ensemble)[i])[k] ≈ masses(structures(ensemble_bis)[i])[k]
-            @test atoms(structures(ensemble)[i])[k] == atoms(structures(ensemble_bis)[i])[k]
+            @test AtomicEnsemble.masses(structures(ensemble)[i])[k] ≈ AtomicEnsemble.masses(structures(ensemble_bis)[i])[k]
+            @test AtomicEnsemble.atoms(structures(ensemble)[i])[k] == AtomicEnsemble.atoms(structures(ensemble_bis)[i])[k]
+        end
+
+        for h in 1:3
+            for k in 1:3
+                @test AtomicEnsemble.cell(structures(ensemble)[i])[h, k] ≈ AtomicEnsemble.cell(structures(ensemble_bis)[i])[h, k]
+            end
         end
     end
 end
