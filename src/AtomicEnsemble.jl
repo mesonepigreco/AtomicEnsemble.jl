@@ -20,6 +20,19 @@ atoms(s :: Structure) = s.atoms
 Base.length(s :: Structure) = size(s.positions, 2)
 
 @doc raw"""
+    copy_structure!(target :: Structure, origin :: Structure)
+
+Copy the structure `origin` to the structure `target`.
+"""
+function copy_structure!(target :: Structure, origin :: Structure) 
+    positions(target) .= positions(origin)
+    masses(target) .= masses(origin)
+    cell(target) .= cell(origin)
+    atoms(target) .= atoms(origin)
+end
+
+
+@doc raw"""
     StandardEnsemble
 
 Stores an ensemble of structures. 
