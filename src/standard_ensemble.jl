@@ -3,10 +3,10 @@
 
 Generate a standard ensemble with the same structure for all configurations.
 """
-function generate_standard_ensemble(n_atoms :: Int, n_configs :: Int)
-    structures = [Structure{T}(n_atoms) for i in 1:n_configs]
-    energies = zeros(T, n_configs)
-    forces = zeros(T, 3, n_atoms, n_configs)
+function generate_standard_ensemble(n_atoms :: Int, n_configs :: Int; type=Float64) :: StandardEnsemble
+    structures = [Structure{type}(n_atoms) for i in 1:n_configs]
+    energies = zeros(type, n_configs)
+    forces = zeros(type, 3, n_atoms, n_configs)
 
     return StandardEnsemble(structures, energies, forces)
 end
