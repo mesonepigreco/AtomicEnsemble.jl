@@ -3,8 +3,7 @@
 
 Generate a standard ensemble with the same structure for all configurations.
 """
-function generate_standard_ensemble(n_configs :: Int)
-    n_atoms = length(copy_structure)
+function generate_standard_ensemble(n_atoms :: Int, n_configs :: Int)
     structures = [Structure{T}(n_atoms) for i in 1:n_configs]
     energies = zeros(T, n_configs)
     forces = zeros(T, 3, n_atoms, n_configs)
