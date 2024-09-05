@@ -25,10 +25,10 @@ Base.length(s :: Structure) = size(s.positions, 2)
 Copy the structure `origin` to the structure `target`.
 """
 function copy_structure!(target :: Structure, origin :: Structure) 
-    positions(target) .= positions(origin)
-    masses(target) .= masses(origin)
-    cell(target) .= cell(origin)
-    atoms(target) .= atoms(origin)
+    @views positions(target) .= positions(origin)
+    @views masses(target) .= masses(origin)
+    @views cell(target) .= cell(origin)
+    @views atoms(target) .= atoms(origin)
 end
 
 

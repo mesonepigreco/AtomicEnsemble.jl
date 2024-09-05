@@ -3,19 +3,20 @@
 
 Generate a standard ensemble with the same structure for all configurations.
 """
-function generate_standard_ensemble(n_configs :: Int, copy_structure :: Structure{T}) :: StandardEnsemble{T} where {T}
+function generate_standard_ensemble(n_configs :: Int)
     n_atoms = length(copy_structure)
-    structures = Vector{Structure{T}}(undef, n_configs)
+    structures = [Structure{T}(n_atoms) for i in 1:n_configs]
     energies = zeros(T, n_configs)
     forces = zeros(T, 3, n_atoms, n_configs)
 
-    for i in 1:n_configs
-        structure = Structure{T}(positions(copy_structure), masses(copy_structure), cell(copy_structure), atoms(copy_structure))
-        structures[i] = structure
-    end
-
     return StandardEnsemble(structures, energies, forces)
 end
+
+
+function Structure{T}(n_atoms :: Int) where {T}
+    return Structure{T}(zeros(T, 3, n_atoms), zeros(T, n_atoms), zeros(T, 3, 3), fill("", n_atoms))
+end
+
 
 
 function convert_to_dict(ensemble :: AbstractEnsemble)
