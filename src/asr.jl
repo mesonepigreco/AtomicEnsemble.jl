@@ -21,3 +21,21 @@ function apply_asr!(positions :: Matrix{T}) where T
         @views positions[i, :] .-= mean(positions[i, :])
     end
 end
+function apply_asr!(vector :: AbstractVecctor{T}; ndim :: Int = 3) where {T}
+    n_atoms = length(vector) ÷ ndim
+    global_translation = zeros(T, ndim)
+    for i in 1:ndim
+        for j in 1:n_atoms
+            index = (j - 1) * ndim + i
+            global_translation[i] += vector[index]
+        end
+    end
+    global_translation ./= n_atoms
+
+    for i in 1:ndim
+        for j in 1:n_atoms
+            index = (j - 1) * ndim + i
+            vector[index] -= global_translation[i]
+        end
+    end
+end
