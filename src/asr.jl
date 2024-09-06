@@ -24,10 +24,10 @@ function apply_asr!(positions :: Matrix{T}) where T
     n_dim = size(positions, 1)
     n_translations = n_dim
     for i in 1:n_translations
-        @views positions[i, :] .-= mean(positions[i, :])
+        @views positions[i, :] .-= sum(positions[i, :]) ./ n_atoms
     end
 end
-function apply_asr!(vector :: AbstractVecctor{T}; ndim :: Int = 3) where {T}
+function apply_asr!(vector :: AbstractVector{T}; ndim :: Int = 3) where {T}
     n_atoms = length(vector) ÷ ndim
     global_translation = zeros(T, ndim)
     for i in 1:ndim

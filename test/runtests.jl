@@ -34,3 +34,6 @@ using AtomicEnsemble
         end
     end
 end
+
+@testset "Apply ASR" include("test_asr.jl")
+
