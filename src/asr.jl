@@ -1,9 +1,15 @@
 @doc raw"""
     apply_asr!(ensemble :: AbstractEnsemble; apply_on_forces :: Bool = false)
     apply_asr!(s :: Structure)
+    apply_asr!(positions :: Matrix{T}) where T
+    apply_asr!(vector :: AbstractVecctor{T}; ndim :: Int = 3) where {T}
 
 Apply the acoustic sum rule to the structures (even the ensemble )(remove the total translations of the system)
 If `apply_on_forces` is true, the forces are also modified. (Only if the ensemble is passed)
+
+In the case of a vector, the vector is assumed to be a vector of positions, 
+with the following structure: [x1, y1, z1, x2, y2, z2, ...]. 
+The vector is modified in place.
 """
 function apply_asr!(ensemble :: AbstractEnsemble; apply_on_forces :: Bool = false)
     for s in structures(ensemble)
