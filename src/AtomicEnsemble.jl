@@ -45,6 +45,7 @@ mutable struct StandardEnsemble{T} <: AbstractEnsemble
     forces :: Array{T} # Forces for each configuratio
 end
 
+
 energies(ensemble :: StandardEnsemble) = ensemble.energies
 forces(ensemble :: StandardEnsemble) = ensemble.forces
 structures(ensemble :: StandardEnsemble) = ensemble.structures
