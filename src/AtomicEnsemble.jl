@@ -53,11 +53,12 @@ Base.length(ensemble :: StandardEnsemble) = length(ensemble.structures)
 export energies, forces, structures
 
 include("standard_ensemble.jl")
+include("asr.jl")
 
 include("pycall_structure.jl")
 include("pycall_ensemble.jl")
 
 export Structure, StandardEnsemble, save, load_ensemble, 
-       generate_standard_ensemble, copy_structure!
+       generate_standard_ensemble, copy_structure!, apply_asr!
 
 end # module AtomicEnsemble
