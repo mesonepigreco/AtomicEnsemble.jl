@@ -44,7 +44,7 @@ function convert_to_ensemble(ensemble_dict :: Dict) :: StandardEnsemble
         error("No structures found in the ensemble")
     end
 
-    forces = zeros(eltype(ensemble_dict["forces"][i][1,1]), 3, length(structures[1]), length(structures))
+    forces = zeros(eltype(ensemble_dict["forces"][1][1,1]), 3, length(structures[1]), length(structures))
     for i in 1:length(structures)
         forces[:, :, i] = ensemble_dict["forces"][i]
     end
