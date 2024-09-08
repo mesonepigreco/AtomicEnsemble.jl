@@ -3,6 +3,9 @@ module AtomicEnsemble
 using FileIO
 using PyCall
 
+using Unitful, UnitfulAtomic
+using PhysicalConstants.CODATA2018: k_B, ħ, m_u
+
 abstract type AbstractEnsemble end
 abstract type AbstractStructure end
 
