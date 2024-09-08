@@ -95,7 +95,7 @@ function get_force!(forces :: AbstractMatrix{Quantity}, structure :: Structure, 
     ase_atoms.set_calculator(calculator)
     set_ase_positions!(ase_atoms, structure)
 
-    @views forces .= ase_atoms.get_forces()' u"eV/Å"
+    forces .= ase_atoms.get_forces()' u"eV/Å"
 end
 
 function get_forces!(forces :: Matrix, structures :: Vector{Structure}, calculator :: PyCall.PyObject)

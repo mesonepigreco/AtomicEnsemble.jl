@@ -3,8 +3,9 @@
 
 Generate a standard ensemble with the same structure for all configurations.
 """
-function generate_standard_ensemble(n_atoms :: Int, n_configs :: Int; type=Float64) :: StandardEnsemble
-    structures = [Structure{type}(n_atoms) for i in 1:n_configs]
+function generate_standard_ensemble(n_atoms :: Int, n_configs :: Int; type=Float64, units_pos = u"Å", units_energies = u"eV", units_forces = u"eV/Å") :: StandardEnsemble
+    struct_type = typeof(zero(type) * units_pos)
+    structures = [Structure{struct_type}(n_atoms) for i in 1:n_configs]
     energies = zeros(type, n_configs)
     forces = zeros(type, 3, n_atoms, n_configs)
 
@@ -12,8 +13,10 @@ function generate_standard_ensemble(n_atoms :: Int, n_configs :: Int; type=Float
 end
 
 
-function Structure{T}(n_atoms :: Int) where {T}
-    return Structure{T}(zeros(T, 3, n_atoms), zeros(T, n_atoms), zeros(T, 3, 3), fill("", n_atoms))
+function Structure(n_atoms :: Int; precision = Float64, unit_pos = u"Å", unit_mass = u"me_au") 
+    type_pos = typeof(zero(precision) * unit_pos)
+    type_mass = typeof(zero(precision) * unit_mass)
+    return Structure(zeros(type_pos, 3, n_atoms), zeros(type_mass, n_atoms), zeros(type_pos, 3, 3), fill("", n_atoms))
 end
 
 
@@ -40,7 +43,8 @@ function convert_to_ensemble(ensemble_dict :: Dict) :: StandardEnsemble
     if length(structures) == 0
         error("No structures found in the ensemble")
     end
-    forces = zeros(Float64, 3, length(structures[1]), length(structures))
+
+    forces = zeros(eltype(ensemble_dict["forces"][i][1,1]), 3, length(structures[1]), length(structures))
     for i in 1:length(structures)
         forces[:, :, i] = ensemble_dict["forces"][i]
     end
