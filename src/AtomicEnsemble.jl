@@ -9,9 +9,9 @@ using PhysicalConstants.CODATA2018: k_B, ħ, m_u
 abstract type AbstractEnsemble end
 abstract type AbstractStructure end
 
-struct Structure{T} <: AbstractStructure
+struct Structure{T, U} <: AbstractStructure
     positions :: Matrix{T}
-    masses :: Vector{T}
+    masses :: Vector{U}
     cell :: Matrix{T}
     atoms :: Vector{String}
 end
@@ -42,10 +42,10 @@ Stores an ensemble of structures.
 If PyCall is available, you can interact with the sscha.Ensemble object from
 python.
 """
-mutable struct StandardEnsemble{T} <: AbstractEnsemble
-    structures :: Vector{Structure{T}}
-    energies :: Vector{T} # Energy for each configuration
-    forces :: Array{T} # Forces for each configuratio
+mutable struct StandardEnsemble <: AbstractEnsemble
+    structures :: Vector{Structure}
+    energies :: Vector # Energy for each configuration
+    forces :: Array # Forces for each configuratio
 end
 
 
