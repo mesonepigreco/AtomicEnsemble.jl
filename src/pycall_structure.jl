@@ -12,12 +12,14 @@ Using Unitful to specify the correct units
 function Structure(s :: PyCall.PyObject) :: Structure
     nat = s.N_atoms
     positions = zeros(Float64, 3, nat) * u"Å"
+    cell = zeros(Float64, 3, 3) * u"Å"
     for i in 1:nat
         positions[:, i] .= s.coords[i, :] * u"Å"
     end
-
+    for i in 1:3
+        cell[:, i] .= s.cell[i, :] * u"Å"
+    end
     masses = s.get_masses_array() .* auconvert(m_u)
-    cell = copy(s.unit_cell') .* u"Å"
     atoms = s.atoms
     return Structure(positions, masses, cell, atoms)
 end
