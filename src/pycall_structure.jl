@@ -90,7 +90,7 @@ The first argument ``forces`` are modified in-place storing a 3xN_atoms matrix f
 
 Notably, the forces must be a unitful type
 """
-function get_force!(forces :: AbstractMatrix{Quantity}, structure :: Structure, calculator :: PyCall.PyObject; ase_atoms = nothing)
+function get_force!(forces :: AbstractMatrix{T}, structure :: Structure, calculator :: PyCall.PyObject; ase_atoms = nothing) where {T <: Quantity}
     if ase_atoms == nothing
         ase_atoms = get_ase_atoms(structure)
     end
