@@ -11,7 +11,7 @@ Using Unitful to specify the correct units
 """
 function Structure(s :: PyCall.PyObject) :: Structure
     nat = s.N_atoms
-    positions = zeros(1.0u"Å", 3, nat)
+    positions = zeros(Float64, 3, nat) * u"Å"
     for i in 1:nat
         positions[:, i] .= s.coords[i, :] * u"Å"
     end
