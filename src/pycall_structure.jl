@@ -17,7 +17,7 @@ function Structure(s :: PyCall.PyObject) :: Structure
         positions[:, i] .= s.coords[i, :] * u"Å"
     end
     for i in 1:3
-        cell[:, i] .= s.cell[i, :] * u"Å"
+        cell[:, i] .= s.unit_cell[i, :] * u"Å"
     end
     masses = s.get_masses_array() .* auconvert(m_u)
     atoms = s.atoms
