@@ -61,7 +61,7 @@ using PyCall
 @pyimport cellconstructor.Structure as ST
 ```
 """
-function load_scf(scf_file :: String, ST) :: Structure{Float64}
+function load_scf(scf_file :: String, ST) :: Structure
     structure = ST.Structure()
     structure.read_scf(scf_file)
     structure.build_masses()
