@@ -49,7 +49,7 @@ function get_ase_atoms(structure :: Structure, ATM) :: PyCall.PyObject
 end
 
 @doc raw"""
-    load_scf(scf_file :: String) :: Structure{Float64}
+    load_scf(scf_file :: String) :: Structure
 
 Load a structure from a Quantum Espresso scf file.
 This file is defined in the python module cellconstructor.

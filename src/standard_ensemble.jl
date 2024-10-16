@@ -4,10 +4,9 @@
 Generate a standard ensemble with the same structure for all configurations.
 """
 function generate_standard_ensemble(n_atoms :: Int, n_configs :: Int; type=Float64, units_pos = u"Å", units_energies = u"eV", units_forces = u"eV/Å") :: StandardEnsemble
-    struct_type = typeof(zero(type) * units_pos)
-    structures = [Structure{struct_type}(n_atoms) for i in 1:n_configs]
-    energies = zeros(type, n_configs)
-    forces = zeros(type, 3, n_atoms, n_configs)
+    structures = [Structure(n_atoms; precision = type) for i in 1:n_configs]
+    energies = zeros(type, n_configs) * units_energies
+    forces = zeros(type, 3, n_atoms, n_configs) * units_forces
 
     return StandardEnsemble(structures, energies, forces)
 end
