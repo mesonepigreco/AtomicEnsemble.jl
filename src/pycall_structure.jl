@@ -19,7 +19,7 @@ function Structure(s :: PyCall.PyObject) :: Structure
     for i in 1:3
         cell[:, i] .= s.unit_cell[i, :] * u"Å"
     end
-    masses = s.get_masses_array() .* auconvert(m_u)
+    masses = s.get_masses_array() * u"me"
     atoms = s.atoms
     return Structure(positions, masses, cell, atoms)
 end
