@@ -1,5 +1,5 @@
 function StandardEnsemble(py_ensemble :: PyCall.PyObject)
-    structures = zeros(Structure{Float64}, py_ensemble.N)
+    structures = zeros(Float64, py_ensemble.N)
     for i in 1:py_ensemble.N
         structures[i] = Structure(py_ensemble.structures[i])
     end
@@ -19,7 +19,7 @@ function load_ase_trajectory(filename :: String, ase_io) :: StandardEnsemble
     ase_ensemble = ase_io.read(filename)
     n_structures = length(ase_ensemble)
 
-    positions = zeros(Structure{Float64}, n_structures)
+    positions = zeros(Float64, n_structures)
     forces = zeros(Float64, 3, length(ase_ensemble[1]), n_structures)
     energies = zeros(Float64, n_structures)
     masses = zeros(Float64, length(ase_ensemble[1]))
