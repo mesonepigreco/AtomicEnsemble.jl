@@ -21,23 +21,21 @@ function load_ase_trajectory(filename :: String, ase_io) :: StandardEnsemble
     nat = length(ase_ensemble[1])
 
     position = zeros(Float64, 3, nat)
-    structures = [Structure(nat; precision = Float64) for i in 1:n_structures]
+    structures = []
     forces = zeros(Float64, 3, nat, n_structures)
     energies = zeros(Float64, n_structures)
     masses = zeros(Float64, nat)
 
     conv_forc = ustrip(auconvert(1.0u"eV/Å"))
     conv_ener = ustrip(auconvert(1.0u"eV"))
+    structures = [get_from_ase_atoms(ase_ensemble[i]) for i in 1:n_structures]
 
     for i in 1:n_structures
-        structures[i] = get_from_ase_atoms(ase_ensemble[i])
-        tmp_struct = get_from_ase_atoms(ase_ensemble[i])
         tmp_force = ase_ensemble[i].get_forces()
         tmp_energy = ase_ensemble[i].get_potential_energy()
         
-        position[:, :] .= ustrip.(auconvert.(tmp_struct.positions))
-        forces[:, :, i] = tmp_force' .* conv_forc
-        energies[i] = tmp_energy * conv_ener
+        forces[:, :, i] = tmp_force' * u"eV/Å"
+        energies[i] = tmp_energy * u"eV"
     end
 
     return StandardEnsemble(positions, energies, forces)
