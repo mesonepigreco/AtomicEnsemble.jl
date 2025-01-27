@@ -23,6 +23,21 @@ atoms(s :: Structure) = s.atoms
 Base.length(s :: Structure) = size(s.positions, 2)
 
 @doc raw"""
+    get_atomic_types_int(s :: Structure) :: Vector{Int}
+
+Return the atomic types as integers.
+"""
+function get_atomic_types_int(s :: Structure)
+    atomic_types = atoms(s)
+    unique_types = unique(atomic_types)
+    atomic_types_int = zeros(Int, length(atomic_types))
+    for i in 1:length(atomic_types)
+        atomic_types_int[i] = findfirst(atomic_types[i], unique_types)
+    end
+    return atomic_types_int
+end
+
+@doc raw"""
     copy_structure!(target :: Structure, origin :: Structure)
 
 Copy the structure `origin` to the structure `target`.
