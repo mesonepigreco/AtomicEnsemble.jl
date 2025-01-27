@@ -20,7 +20,7 @@ function load_ase_trajectory(filename :: String, ase_io) :: StandardEnsemble
     n_structures = length(ase_ensemble)
 
     positions = zeros(Float64, n_structures)
-    forces = zeros(Float64, 3, length(ase_ensemble[1]), n_structures)
+    forces = zeros(Float64, 3, n_atoms(ase_ensemble[1]), n_structures)
     energies = zeros(Float64, n_structures)
     masses = zeros(Float64, length(ase_ensemble[1]))
 
