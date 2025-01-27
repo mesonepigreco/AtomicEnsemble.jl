@@ -40,7 +40,7 @@ function load_ase_trajectory(filename :: String, ase_io) :: StandardEnsemble
     my_forces = forces * u"eV/Å"
     my_energies = energies * u"eV"
 
-    return StandardEnsemble(positions, my_energies, my_forces)
+    return StandardEnsemble(structures, my_energies, my_forces)
 end
 
 
