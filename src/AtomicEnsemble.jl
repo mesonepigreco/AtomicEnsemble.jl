@@ -32,7 +32,7 @@ function get_atomic_types_int(s :: Structure)
     unique_types = unique(atomic_types)
     atomic_types_int = zeros(Int, length(atomic_types))
     for i in 1:length(atomic_types)
-        atomic_types_int[i] = findfirst(atomic_types[i], unique_types)
+        atomic_types_int[i] = findfirst(x -> x == atomic_types[i], unique_types)
     end
     return atomic_types_int
 end
