@@ -35,7 +35,7 @@ function load_ase_trajectory(filename :: String, ase_io) :: StandardEnsemble
         tmp_energy = ase_ensemble[i].get_potential_energy()
         
         forces[:, :, i] = tmp_force'
-        energies[i] = tmp_energy * 
+        energies[i] = tmp_energy 
     end
     my_forces = forces * u"eV/Å"
     my_energies = energies * u"eV"
