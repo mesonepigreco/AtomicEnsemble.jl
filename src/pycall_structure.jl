@@ -30,13 +30,13 @@ function get_from_ase_atoms(ase_atoms :: PyCall.PyObject) :: Structure
     positions = zeros(Float64, 3, nat) * u"Å"
     cell = zeros(Float64, 3, 3) * u"Å"
     for i in 1:nat
-        positions[:, i] .= s.get_positions()[i, :] * u"Å"
+        positions[:, i] .= ase_atoms.get_positions()[i, :] * u"Å"
     end
     for i in 1:3
-        cell[:, i] .= s.get_cell()[i, :] * u"Å"
+        cell[:, i] .= ase_atoms.get_cell()[i, :] * u"Å"
     end
-    masses = s.get_masses() * 1822.888486217313u"me"
-    atoms = s.get_chemical_symbols()
+    masses = ase_atoms.get_masses() * 1822.888486217313u"me"
+    atoms = ase_atoms.get_chemical_symbols()
     return Structure(positions, masses, cell, atoms)
 end
 
