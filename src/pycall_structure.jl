@@ -34,7 +34,7 @@ function get_from_ase_atoms(ase_atoms :: PyCall.PyObject) :: Structure
     end
     for i in 1:3
         for j in 1:3
-            cell[j, i] .= ase_atoms.get_cell()[i, j] * u"Å"
+            cell[j, i] = ase_atoms.get_cell()[i, j] * u"Å"
         end
     end
     masses = ase_atoms.get_masses() * 1822.888486217313u"me"
