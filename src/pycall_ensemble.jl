@@ -15,7 +15,7 @@ function StandardEnsemble(py_ensemble :: PyCall.PyObject)
 end
 
     
-function load_ase_trajectory(filename :: String, ase_io :: PyCall.PyObject) :: StandardEnsemble
+function load_ase_trajectory(filename :: String, ase_io) :: StandardEnsemble
     ase_ensemble = ase_io.read(filename)
     n_structures = length(ase_ensemble)
 
@@ -39,4 +39,6 @@ function load_ase_trajectory(filename :: String, ase_io :: PyCall.PyObject) :: S
 
     return StandardEnsemble(positions, energies, forces)
 end
+
+
 
