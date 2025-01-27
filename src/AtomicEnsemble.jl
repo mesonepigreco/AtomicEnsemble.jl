@@ -82,6 +82,6 @@ include("pycall_ensemble.jl")
 export Structure, StandardEnsemble, save, load_ensemble, 
        atomic_units_strip,
        generate_standard_ensemble, copy_structure!, apply_asr!,
-       cell, positions, energies, forces, structures, atoms
+       cell, positions, energies, forces, structures, atoms, n_atoms
 
 end # module AtomicEnsemble
