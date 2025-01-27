@@ -131,5 +131,5 @@ end
 
 
 function n_atoms(structure :: Structure)
-    return size(structure.positions, 1)
+    return size(structure.positions, 2)
 end
