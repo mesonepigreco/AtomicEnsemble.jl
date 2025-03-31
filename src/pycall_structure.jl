@@ -11,14 +11,34 @@ Using Unitful to specify the correct units
 """
 function Structure(s :: PyCall.PyObject) :: Structure
     nat = s.N_atoms
-    positions = zeros(1.0u"Å", 3, nat)
+    positions = zeros(Float64, 3, nat) * u"Å"
+    cell = zeros(Float64, 3, 3) * u"Å"
     for i in 1:nat
         positions[:, i] .= s.coords[i, :] * u"Å"
     end
-
-    masses = s.get_masses_array() .* auconvert(m_u)
-    cell = copy(s.unit_cell') .* u"Å"
+    for i in 1:3
+        cell[:, i] .= s.unit_cell[i, :] * u"Å"
+    end
+    masses = s.get_masses_array() * u"me"
     atoms = s.atoms
+    return Structure(positions, masses, cell, atoms)
+end
+
+
+function get_from_ase_atoms(ase_atoms :: PyCall.PyObject) :: Structure
+    nat = length(ase_atoms)
+    positions = zeros(Float64, 3, nat) * u"Å"
+    cell = zeros(Float64, 3, 3) * u"Å"
+    for i in 1:nat
+        positions[:, i] .= ase_atoms.get_positions()[i, :] * u"Å"
+    end
+    for i in 1:3
+        for j in 1:3
+            cell[j, i] = ase_atoms.get_cell()[i, j] * u"Å"
+        end
+    end
+    masses = ase_atoms.get_masses() * 1822.888486217313u"me"
+    atoms = ase_atoms.get_chemical_symbols()
     return Structure(positions, masses, cell, atoms)
 end
 
@@ -47,7 +67,7 @@ function get_ase_atoms(structure :: Structure, ATM) :: PyCall.PyObject
 end
 
 @doc raw"""
-    load_scf(scf_file :: String) :: Structure{Float64}
+    load_scf(scf_file :: String) :: Structure
 
 Load a structure from a Quantum Espresso scf file.
 This file is defined in the python module cellconstructor.
@@ -59,7 +79,7 @@ using PyCall
 @pyimport cellconstructor.Structure as ST
 ```
 """
-function load_scf(scf_file :: String, ST) :: Structure{Float64}
+function load_scf(scf_file :: String, ST) :: Structure
     structure = ST.Structure()
     structure.read_scf(scf_file)
     structure.build_masses()
@@ -88,7 +108,7 @@ The first argument ``forces`` are modified in-place storing a 3xN_atoms matrix f
 
 Notably, the forces must be a unitful type
 """
-function get_force!(forces :: AbstractMatrix{Quantity}, structure :: Structure, calculator :: PyCall.PyObject; ase_atoms = nothing)
+function get_force!(forces :: AbstractMatrix{T}, structure :: Structure, calculator :: PyCall.PyObject; ase_atoms = nothing) where {T <: Quantity}
     if ase_atoms == nothing
         ase_atoms = get_ase_atoms(structure)
     end
@@ -111,5 +131,5 @@ end
 
 
 function n_atoms(structure :: Structure)
-    return size(structure.positions, 1)
+    return size(structure.positions, 2)
 end
